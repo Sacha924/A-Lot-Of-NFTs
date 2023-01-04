@@ -5,7 +5,9 @@ const { verify } = require("../utils/verify");
 module.exports = async function ({ getNamedAccounts, deployments }) {
   const { deploy, logs } = deployments;
   const { deployer } = await getNamedAccounts();
-  console.log("_".repeat(50)); // log is a function provided by the Hardhat runtime environment that can be used to print messages to the console.
+
+  console.log("_".repeat(50));
+
   const args = [];
   const basicNft = await deploy("BasicNFT", {
     from: deployer,

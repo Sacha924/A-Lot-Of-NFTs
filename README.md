@@ -4,6 +4,12 @@ I will make 3 contract for 3 different NFT :
 2. Random IPFS hosted NFT
 3. Dynamic SVG NFT
 
+## Summary of the random IPFS NFT Part
+
+
+
+
+
 ## Commands for Dependencies
 
 ```
@@ -14,6 +20,14 @@ yarn hardhat
 yarn add --dev @typechain/ethers-v5 @typechain/hardhat @types/chai @types/node @types/mocha ts-node typechain typescript
 
 yarn add --dev @openzeppelin/contracts
+
+yarn add --dev @chainlink/contracts
+
+ yarn add --dev @pinata/sdk
+
+ yarn add --dev path
+
+ yarn hardhat deploy --tags randomipfs,mocks
 ```
 
 ## Some line comments
@@ -30,8 +44,6 @@ The getNamedAccounts property is a function that can be used to get the Ethereum
 
 This line of code is typically used at the beginning of a deployment script in a Hardhat project to set up the necessary dependencies for the script. The function that is exported will be called when the deployment script is run, and it will have access to the getNamedAccounts and deployments functions through the object that is passed as an argument.
 
-
-
 ```
 const basicNft = await deploy("BasicNFT", {
     from: deployer,
@@ -40,7 +52,6 @@ const basicNft = await deploy("BasicNFT", {
     waitConfirmations: network.config.blockConfirmations || 1,
   });
 ```
-
 
 In this code snippet, the deploy function is being used to deploy a contract to the Ethereum blockchain and call its constructor with the specified arguments. The deploy function is part of the deployments object in a Hardhat project, and it takes two parameters: the name of the contract to be deployed, and an array of arguments to be passed to the contract's constructor.
 
