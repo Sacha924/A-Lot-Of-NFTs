@@ -53,7 +53,7 @@ contract RandomIpfsNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
 
   // Even if the contract inherit from ERC721URIStorage, we write ERC721 in our constructor because ERC721URIStorage is just an extension of the ERC721
   // abstract contract ERC721URIStorage is ERC721
-  constructor(address vrfCoordinatorV2, uint64 subscriptionId, bytes32 gasLane, uint32 callbackGasLimit, string[3] memory dogTokenUris, uint256 mintFee) VRFConsumerBaseV2(vrfCoordinatorV2) ERC721("Random Ipfs Nft", "RIN") {
+  constructor(address vrfCoordinatorV2, uint64 subscriptionId, bytes32 gasLane, uint256 mintFee, uint32 callbackGasLimit, string[3] memory dogTokenUris) VRFConsumerBaseV2(vrfCoordinatorV2) ERC721("Random Ipfs Nft", "RIN") {
     i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
     i_subscriptionId = subscriptionId;
     i_gasLane = gasLane;
