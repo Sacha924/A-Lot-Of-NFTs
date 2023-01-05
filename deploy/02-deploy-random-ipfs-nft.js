@@ -4,6 +4,7 @@ const { verify } = require("../utils/verify");
 const { storeImages, storeTokenUriMetadata } = require("../utils/uploadToPinata");
 const { Console } = require("console");
 
+const FUND_AMOUNT = "1000000000000000000000"
 const imagesLocation = "./images/randomNft";
 
 const metadataTemplate = {
@@ -19,6 +20,8 @@ const metadataTemplate = {
   ],
 };
 
+let tokenUris = ["ipfs://QmaVkBn2tKmjbhphU7eyztbvSQU5EXDdqRyXZtRhSGgJGo", "ipfs://QmYQC5aGZu2PTH8XzbJrbDnvhj3gVs7ya33H9mqUNvST3d", "ipfs://QmZYmH5iDbD6v3U2ixoVAjioSzvWJszDzYdbeCLquGSpVm"];
+
 module.exports = async function ({ getNamedAccounts, deployments }) {
   const { deploy, logs } = deployments;
   const { deployer } = await getNamedAccounts();
@@ -26,7 +29,6 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 
   // We want to upload our images to IPFS so everybody can pin them and work with them
   // Get the IPFS hash of our images, we can do so by using our own ipfs node, or by using pinata (it pins nft for us ^^). Or we can use NFT.storage (fully decentralized)
-  let tokenUris = ["ipfs://QmaVkBn2tKmjbhphU7eyztbvSQU5EXDdqRyXZtRhSGgJGo", "ipfs://QmYQC5aGZu2PTH8XzbJrbDnvhj3gVs7ya33H9mqUNvST3d", "ipfs://QmZYmH5iDbD6v3U2ixoVAjioSzvWJszDzYdbeCLquGSpVm"];
   if (process.env.UPLOAD_TO_PINATA == "true") {
     tokenUris = await handleTokenUris();
   }
@@ -41,6 +43,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     // subscriptionId = transactionReceipt.events[0].args.subId
 
     subscriptionId = txReceipt.events[0].args.subId.toNumber();
+    await vrfCoordinatorV2Mock.fundSubscription(subscriptionId,FUND_AMOUNT);
   } else {
     vrfCoordinatorV2Address = networkConfig[chainId].vrfCoordinatorV2;
     subscriptionId = networkConfig[chainId].subscriptionId;
